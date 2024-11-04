@@ -29,7 +29,7 @@ public class UserServiceImpl  implements UserService{
     @Override
     @Transactional(readOnly = true)
     public Optional<User> findById(@NonNull Long id) {
-        return this.findById(id);
+        return this.repository.findById(id);
 
     }
 

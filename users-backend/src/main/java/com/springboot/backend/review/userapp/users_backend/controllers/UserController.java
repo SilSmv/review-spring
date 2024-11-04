@@ -34,7 +34,7 @@ private UserService service;
 
 
     @GetMapping
-    public List<User> list(@RequestParam String param) {
+    public List<User> list() {
         return this.service.findByAll();
     }
     @GetMapping("/{id}")
@@ -48,7 +48,7 @@ private UserService service;
     }
     
 
-    @PostMapping("path")
+    @PostMapping()
     public ResponseEntity<User> create(@RequestBody User user) {
         return ResponseEntity.ok().body(this.service.save(user));
     }
