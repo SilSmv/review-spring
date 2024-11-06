@@ -14,6 +14,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +46,12 @@ private UserService service;
     public List<User> list() {
         return this.service.findByAll();
     }
+    @GetMapping("/page/{page}")
+    public Page<User> listPageable(@PathVariable Integer page) {
+        Pageable pageable = PageRequest.of(page,4);
+        return this.service.findAll(pageable);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> show(@PathVariable Long id) {
         Optional<User> userOptional =  service.findById(id);
