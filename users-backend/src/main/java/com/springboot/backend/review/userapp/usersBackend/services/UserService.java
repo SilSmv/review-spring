@@ -1,4 +1,4 @@
-package com.springboot.backend.review.userapp.users_backend.services;
+package com.springboot.backend.review.userapp.usersBackend.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.springboot.backend.review.userapp.users_backend.entities.User;
+import com.springboot.backend.review.userapp.usersBackend.entities.User;
 
 public interface UserService {
 

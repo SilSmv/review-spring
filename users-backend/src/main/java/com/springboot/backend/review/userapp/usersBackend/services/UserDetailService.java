@@ -1,4 +1,4 @@
-package com.springboot.backend.review.userapp.users_backend.services;
+package com.springboot.backend.review.userapp.usersBackend.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.springboot.backend.review.userapp.users_backend.entities.User;
-import com.springboot.backend.review.userapp.users_backend.repositories.UserRepository;
+import com.springboot.backend.review.userapp.usersBackend.entities.User;
+import com.springboot.backend.review.userapp.usersBackend.repositories.UserRepository;
 
 
 @Service

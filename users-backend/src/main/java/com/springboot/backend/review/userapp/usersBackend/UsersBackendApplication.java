@@ -1,4 +1,4 @@
-package com.springboot.backend.review.userapp.users_backend;
+package com.springboot.backend.review.userapp.usersBackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

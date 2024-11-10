@@ -1,4 +1,4 @@
-package com.springboot.backend.review.userapp.users_backend.entities;
+package com.springboot.backend.review.userapp.usersBackend.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

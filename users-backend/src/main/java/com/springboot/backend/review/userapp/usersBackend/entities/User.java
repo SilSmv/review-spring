@@ -1,4 +1,4 @@
-package com.springboot.backend.review.userapp.users_backend.entities;
+package com.springboot.backend.review.userapp.usersBackend.entities;
 
 import java.util.ArrayList;
 import java.util.List;
