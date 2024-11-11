@@ -68,11 +68,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .getPrincipal();
         String username = user.getUsername();
         Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
+        boolean isAdmin = roles.stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
 
         Claims claims = Jwts
                 .claims()
                 .add("authorities", new ObjectMapper().writeValueAsString(roles))
                 .add("username", username)
+                .add("isAdmin",isAdmin)
                 .build();
 
         String jwt = Jwts.builder()
@@ -98,6 +100,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException failed) throws IOException, ServletException {
+                
+            Map <String, String > body = new HashMap<>();
+            body.put("message", "Error en la autenticacion con username y password incorrecto");
+            body.put("error", failed.getMessage());
+
+            response.getWriter().write(new ObjectMapper().writeValueAsString(body));
+            response.setContentType(CONTENT_TYPE);
+            response.setStatus(401);
     }
 
 }

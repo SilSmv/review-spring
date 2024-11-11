@@ -3,6 +3,7 @@ package com.springboot.backend.review.userapp.usersBackend.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.backend.review.userapp.usersBackend.entities.User;
+import com.springboot.backend.review.userapp.usersBackend.models.UserRequest;
 import com.springboot.backend.review.userapp.usersBackend.services.UserService;
 
 import jakarta.validation.Valid;
@@ -71,21 +72,17 @@ private UserService service;
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@Valid @RequestBody User user,BindingResult result,@PathVariable String id) {
+    public ResponseEntity<?> update(@Valid @RequestBody UserRequest user,BindingResult result,@PathVariable Long id) {
         if(result.hasErrors()){
             return validation(result);
         }
-        Optional<User> userOptional = this.service.findById(user.getId());
+
+        Optional<User> userOptional = this.service.update(user, id);
         if(userOptional.isPresent()){
-            User userBd = userOptional.get();
-            userBd.setEmail(user.getEmail());
-            userBd.setLastname(user.getLastname());
-            userBd.setName(user.getName());
-            userBd.setUsername(user.getUsername());
-            userBd.setPassword(userBd.getPassword());
-            return ResponseEntity.ok(this.service.save(userBd));
+            return ResponseEntity.ok(userOptional.orElseThrow());
         }
-        
+
+
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}")

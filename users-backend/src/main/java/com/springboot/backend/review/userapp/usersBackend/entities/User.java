@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.annotations.ManyToAny;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.springboot.backend.review.userapp.usersBackend.models.IUser;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,7 +27,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements IUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
@@ -44,6 +46,18 @@ public class User {
     @Size(min=4,max=12)
     private String username;
 
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private boolean admin;
+
+    
+
+    @NotBlank
+    private String password;
+    // Si hay valor que no se encuentra en la base de datos se pone la siguiente anotacion
+    // @Transient
+    // private String example;
+
     @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -55,16 +69,9 @@ public class User {
     )
     private List<Role> roles;
 
-    
-
     public User() {
         this.roles = new ArrayList<>();
     }
-    @NotBlank
-    private String password;
-    // Si hay valor que no se encuentra en la base de datos se pone la siguiente anotacion
-    // @Transient
-    // private String example;
 
     public Long getId() {
         return id;
@@ -105,6 +112,18 @@ public class User {
     public List<Role> getRoles() {
         return roles;
     }
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+    
     
     
 }
