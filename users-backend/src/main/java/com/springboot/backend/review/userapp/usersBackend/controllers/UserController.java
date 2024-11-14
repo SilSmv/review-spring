@@ -86,10 +86,10 @@ private UserService service;
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id ){
+    public ResponseEntity<?> delete(@PathVariable Long id ){
         Optional <User> userOptional = this.service.findById(id);
         if(userOptional.isPresent()){
-            this.service.deleteById(id);
+           Long userIdRemoved =  this.service.deleteById(id);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
