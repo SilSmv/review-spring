@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.springboot.backend.review.userapp.usersBackend.models.IUser;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -40,14 +41,16 @@ public class User implements IUser {
 
     @NotEmpty
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotBlank
     @Size(min=4,max=12)
+    @Column(unique = true)
     private String username;
 
     @Transient
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean admin;
 
     

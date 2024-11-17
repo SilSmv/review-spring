@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:4200"},originPatterns = {"*"})
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

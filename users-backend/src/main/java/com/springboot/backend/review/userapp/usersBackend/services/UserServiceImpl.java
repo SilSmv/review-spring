@@ -3,6 +3,8 @@ package com.springboot.backend.review.userapp.usersBackend.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,12 +40,22 @@ public class UserServiceImpl  implements UserService{
     @Override
     @Transactional(readOnly = true)
     public List<User> findByAll() {
-        return (List) this.repository.findAll();
+        return (List<User>) ((List<User>)this.repository.findAll()).stream().map(user -> {
+            boolean admin = user.getRoles().stream().anyMatch(role -> "ROLE_ADMIN".equals(role.getName()));
+            user.setAdmin(admin);
+            return user;
+        }).collect(Collectors.toList());
     }
     @Override
     @Transactional(readOnly = true)
     public Page<User> findAll(Pageable pageable) {
-        return this.repository.findAll(pageable);
+        return this.repository.findAll(pageable).map(
+            user -> {
+                boolean admin = user.getRoles().stream().anyMatch(role -> "ROLE_ADMIN".equals(role.getName()));
+                user.setAdmin(admin);
+                return user;}
+            
+        );
     }
 
     @Override
